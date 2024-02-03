@@ -48,12 +48,12 @@ class Category(models.Model):
         return self.title
 
 
-class Like(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
+# class Like(models.Model):
+#     user = models.ForeignKey(User, on_delete=models.CASCADE)
 
 
 class Product(models.Model):
     name = models.CharField(max_length=128)
     desc = models.TextField()
     img = models.ImageField(upload_to='imgs')
-    like = models.ForeignKey(Like, on_delete=models.CASCADE, null=True, blank=True)
+    like = models.ManyToManyField(User, related_name='like', blank=True)
