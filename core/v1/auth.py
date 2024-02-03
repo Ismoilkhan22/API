@@ -4,9 +4,8 @@ from rest_framework.permissions import AllowAny
 from rest_framework.response import Response
 
 
-
-from core.models import User
-from core.serializer import UserSerializer
+from views.models import User
+from views.serializer import UserSerializer
 
 
 class LoginView(GenericAPIView):

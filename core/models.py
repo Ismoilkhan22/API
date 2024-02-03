@@ -30,13 +30,30 @@ class CManager(UserManager):
 
 
 class User(AbstractBaseUser, PermissionsMixin):
+    username = models.CharField(max_length=128)
     email = models.ImageField(max_length=256, unique=True)
     is_superuser = models.BooleanField(default=False)
     is_active = models.BooleanField(default=True)
     is_staff = models.BooleanField(default=False)
 
     objects = CManager()
-    REQUIRED_FIELDS = []
+    REQUIRED_FIELDS = ['username']
     USERNAME_FIELD = 'email'
 
 
+class Category(models.Model):
+    title = models.CharField(max_length=256)
+
+    def __str__(self):
+        return self.title
+
+
+class Like(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+
+
+class Product(models.Model):
+    name = models.CharField(max_length=128)
+    desc = models.TextField()
+    img = models.ImageField(upload_to='imgs')
+    like = models.ForeignKey(Like, on_delete=models.CASCADE, null=True, blank=True)
